@@ -1,4 +1,4 @@
-# liquor
+# liquor-sdk
 
 <img align="right" width="159px" src="https://avatars.githubusercontent.com/u/197004919">
 
