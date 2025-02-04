@@ -2,7 +2,7 @@
 
 <img align="right" width="159px" src="https://avatars.githubusercontent.com/u/197004919">
 
-Liquor is a web development framework built with Golang, designed to simplify the implementation of web projects. It is primarily focused on backend development and leverages several libraries specifically tailored for web development.
+This is the CLI used to work with the liquor framework. Please see more in https://github.com/go-liquor/liquor
 
 
 - [Installation](#install-cli)
@@ -14,7 +14,7 @@ Liquor is a web development framework built with Golang, designed to simplify th
 ## Install CLI
 
 ```bash
-go install github.com/go-liquor/liquor-sdk@latest
+go install github.com/go-liquor/liquor@latest
 ```
 
 ## Usage
