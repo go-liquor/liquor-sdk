@@ -20,7 +20,14 @@ import (
 // Returns:
 //   - aws.Config: The AWS configuration object
 func AwsClient(config *config.Config, logger *zap.Logger) aws.Config {
-	cfg, err := awsconfig.LoadDefaultConfig(context.TODO(), awsconfig.WithRegion(config.GetString("aws.region")))
+	cfg, err := awsconfig.LoadDefaultConfig(context.TODO(),
+		awsconfig.WithRegion(config.GetString("aws.region")),
+		awsconfig.WithCredentialsProvider(aws.CredentialsProviderFunc(func(ctx context.Context) (aws.Credentials, error) {
+			return aws.Credentials{
+				AccessKeyID:     config.GetString("aws.accessKeyId"),
+				SecretAccessKey: config.GetString("aws.secretAccessKey"),
+			}, nil
+		})))
 	if err != nil {
 		logger.Fatal("failed to load aws config", zap.Error(err))
 	}
