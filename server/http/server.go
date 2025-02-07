@@ -23,6 +23,7 @@ func instanceServer(config *config.Config) *gin.Engine {
 	crs := cors.Default()
 	if !config.GetServerHttpCorsDefaultAllow() {
 		crs = cors.New(cors.Config{
+			AllowAllOrigins:  false,
 			AllowOrigins:     config.GetServerHttpCorsAllowOrigins(),
 			AllowMethods:     config.GetServerHttpCorsAllowMethods(),
 			AllowHeaders:     config.GetServerHttpCorsAllowHeaders(),
