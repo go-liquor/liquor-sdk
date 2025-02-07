@@ -22,13 +22,19 @@ func instanceServer(config *config.Config) *gin.Engine {
 	}
 	crs := cors.Default()
 	if !config.GetServerHttpCorsDefaultAllow() {
-		crs = cors.New(cors.Config{
-			AllowAllOrigins:  false,
-			AllowOrigins:     config.GetServerHttpCorsAllowOrigins(),
+		corsConfig := cors.Config{
 			AllowMethods:     config.GetServerHttpCorsAllowMethods(),
 			AllowHeaders:     config.GetServerHttpCorsAllowHeaders(),
 			AllowCredentials: config.GetServerHttpCorsAllowCredentials(),
-		})
+		}
+
+		if len(config.GetServerHttpCorsAllowOrigins()) == 1 && config.GetServerHttpCorsAllowOrigins()[0] == "*" {
+			corsConfig.AllowAllOrigins = true
+		} else {
+			corsConfig.AllowOrigins = config.GetServerHttpCorsAllowOrigins()
+		}
+
+		crs = cors.New(corsConfig)
 	}
 	svc.Use(crs)
 	return svc
