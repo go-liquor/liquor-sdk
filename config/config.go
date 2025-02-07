@@ -120,7 +120,7 @@ func (c *Config) GetServerHttpCorsDefaultAllow() bool {
 // Returns:
 // - A slice of strings containing the allowed origins.
 func (c *Config) GetServerHttpCorsAllowOrigins() []string {
-	return c.stg.GetStringSlice("server.http.cors.origins")
+	return c.stg.GetStringSlice("server.http.cors.origin")
 }
 
 // GetServerHttpCorsAllowMethods retrieves the list of allowed HTTP methods for CORS on the HTTP server.
