@@ -13,7 +13,7 @@ import (
 // - *mongo.Client: a new connection to mongodb database
 func NewConnection(config *config.Config, logger *zap.Logger) *mongo.Client {
 	client, err := mongo.Connect(options.Client().
-		ApplyURI(config.GetString("database.mongodb.dsn")))
+		ApplyURI(config.GetString("database.mongodb.dns")))
 	if err != nil {
 		logger.Fatal("failed to connect in database", zap.Error(err))
 	}
