@@ -15,7 +15,7 @@ import (
 // Returns:
 // - *bun.DB: a new connection to postgres database
 func NewConnection(config *config.Config, logger *zap.Logger) *bun.DB {
-	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(config.GetString("database.sqlite.dsn"))))
+	sqldb := sql.OpenDB(pgdriver.NewConnector(pgdriver.WithDSN(config.GetString("database.postgres.dns"))))
 
 	db := bun.NewDB(sqldb, pgdialect.New())
 	return db
