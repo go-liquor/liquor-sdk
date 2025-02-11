@@ -30,3 +30,10 @@ func RegisterRepositories(repos ...interface{}) fx.Option {
 		repos...,
 	))
 }
+
+// RegisterProviders register you providers
+func RegisterProviders(providers ...interface{}) fx.Option {
+	return fx.Module("liquor-app-providers", fx.Provide(
+		providers...,
+	))
+}
