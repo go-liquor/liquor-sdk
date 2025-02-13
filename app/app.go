@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/go-liquor/liquor-sdk/config"
 	"github.com/go-liquor/liquor-sdk/logger"
+	"github.com/go-liquor/liquor-sdk/server/http"
 	"go.uber.org/fx"
 )
 
@@ -11,24 +12,32 @@ func NewApp(modules ...fx.Option) {
 	options := []fx.Option{
 		config.ConfigModule,
 		logger.LoggerModule,
+		http.HttpModule,
 	}
 	options = append(options, modules...)
 	app := fx.New(options...)
 	app.Run()
 }
 
-// RegisterService register you services
-func RegisterService(services ...interface{}) fx.Option {
-	return fx.Module("liquor-app-services", fx.Provide(
-		services...,
-	))
+func NewModule(moduleName string, in ...any) fx.Option {
+	var ops = []fx.Option{}
+
+	for _, i := range in {
+		if opt, ok := i.(fx.Option); ok {
+			ops = append(ops, opt)
+			continue
+		}
+		ops = append(ops, fx.Provide(i))
+	}
+
+	return fx.Module(moduleName, ops...)
 }
 
-// RegisterRepositories register you repositories
-func RegisterRepositories(repos ...interface{}) fx.Option {
-	return fx.Module("liquor-app-repositories", fx.Provide(
-		repos...,
-	))
+// RegisterServices register you services
+func RegisterServices(services ...interface{}) fx.Option {
+	return fx.Provide(
+		services...,
+	)
 }
 
 // RegisterProviders register you providers
