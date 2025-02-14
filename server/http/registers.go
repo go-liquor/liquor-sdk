@@ -2,21 +2,11 @@ package http
 
 import "go.uber.org/fx"
 
-// RegisterRoutes register you routes
-func RegisterRoutes(routes ...interface{}) fx.Option {
-	return fx.Invoke(routes...)
-}
-
-// RegisterHandlers register you handlers
-func RegisterHandlers(handlers ...interface{}) fx.Option {
-	return fx.Provide(handlers...)
-}
-
 // NewRestModule creates a new REST module with handler and route registration.
 //
 // Parameters:
 //   - name: Module name identifier
-//   - handler: HTTP handler implementation
+//   - providers: Handlers and middlewares to be provided
 //   - route: Route registration function
 //
 // Returns:
@@ -29,9 +19,9 @@ func RegisterHandlers(handlers ...interface{}) fx.Option {
 //	    NewUserHandler,
 //	    RegisterUserRoutes,
 //	)
-func NewRestModule(name string, handler any, route any) fx.Option {
+func NewRestModule(name string, route any, providers ...any) fx.Option {
 	return fx.Module("liquor-app-rest-"+name, fx.Provide(
-		handler,
+		providers...,
 	),
 		fx.Invoke(route))
 }
