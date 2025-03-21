@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"github.com/go-liquor/liquor-sdk/config"
-	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -21,7 +20,7 @@ func instanceLogger(config *config.Config) *zap.Logger {
 	}
 
 	var level zapcore.Level
-	switch viper.GetString(config.GetLogLevel()) {
+	switch config.GetLogLevel() {
 	case "debug":
 		cfg.DisableCaller = false
 		cfg.DisableStacktrace = false
